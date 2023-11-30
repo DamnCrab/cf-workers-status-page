@@ -1,23 +1,23 @@
 settings:
-  title: 'Status Page'
-  url: 'https://status-page.eidam.dev' # used for Slack messages
+  title: 'SRVFI探针'
+  url: 'https://status.srvfi.top/' # used for Slack messages
   logo: logo-192x192.png # image in ./public/ folder
   daysInHistogram: 90 # number of days you want to display in histogram
   collectResponseTimes: true # collects avg response times from CRON locations
 
-  allmonitorsOperational: 'All Systems Operational'
-  notAllmonitorsOperational: 'Not All Systems Operational'
-  monitorLabelOperational: 'Operational'
-  monitorLabelNotOperational: 'Not Operational'
-  monitorLabelNoData: 'No data'
-  dayInHistogramNoData: 'No data'
-  dayInHistogramOperational: 'All good'
+  allmonitorsOperational: '全部系统在线'
+  notAllmonitorsOperational: '部分系统宕机'
+  monitorLabelOperational: '在线'
+  monitorLabelNotOperational: '宕机'
+  monitorLabelNoData: '暂无数据'
+  dayInHistogramNoData: '暂无数据'
+  dayInHistogramOperational: '一切正常'
   dayInHistogramNotOperational: ' incident(s)' # xx incident(s) recorded
 
 monitors:
   - id: www-srvfi-top # unique identifier
-    name: www-srvfi-top
-    description: '主站' # default=empty
+    name: 'www-srvfi-top'
+    description: 'SRVFI主站' # default=empty
     url: 'https://www.srvfi.top/' # URL to fetch
     method: GET # default=GET
     expectStatus: 200 # operational status, default=200
@@ -25,15 +25,16 @@ monitors:
     linkable: false # allows the title to be a link, default=true
 
   - id: ptgen-srvfi-top
-    name: ptgen-srvfi-top
+    name: 'ptgen-srvfi-top'
     description: 'ptgen服务'
     url: 'https://ptgen.srvfi.top/'
     method: GET
     expectStatus: 200
     linkable: true # allows the title to be a link, default=true
 
-  - id: www.svfi.group
-    name: 'svfi文档'
+  - id: www-svfi-group
+    name: 'www-svfi-group'
+    description: 'svfi文档'
     url: 'https://www.svfi.group/'
     method: GET
     expectStatus: 200
