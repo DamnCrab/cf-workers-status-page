@@ -11,16 +11,17 @@ settings:
   monitorLabelNotOperational: '宕机'
   monitorLabelNoData: '暂无数据'
   dayInHistogramNoData: '暂无数据'
-  dayInHistogramOperational: '一切正常'
-  dayInHistogramNotOperational: ' incident(s)' # xx incident(s) recorded
+  dayInHistogramOperational: '正常'
+  dayInHistogramNotOperational: ' 次失败(s)' # xx incident(s) recorded
 
 monitors:
   - id: www-srvfi-top # unique identifier
     name: 'SRVFI主站'
-    url: 'https://www.srvfi.top/index.php' # URL to fetch
+    url: 'https://www.srvfi.top/login.php' # URL to fetch
     method: GET # default=GET
     expectStatus: 200 # operational status, default=200
     followRedirect: false # should fetch follow redirects, default=false
+    linkable: true
 
   - id: ptgen-srvfi-top
     name: 'ptgen服务'
@@ -34,3 +35,5 @@ monitors:
     url: 'https://doc.svfi.group/'
     method: GET
     expectStatus: 200
+    linkable: true
+    followRedirect: true
