@@ -16,8 +16,7 @@ settings:
 
 monitors:
   - id: www-srvfi-top # unique identifier
-    name: 'www-srvfi-top'
-    description: 'SRVFI主站' # default=empty
+    name: 'SRVFI主站'
     url: 'https://www.srvfi.top/' # URL to fetch
     method: GET # default=GET
     expectStatus: 200 # operational status, default=200
@@ -25,16 +24,14 @@ monitors:
     linkable: false # allows the title to be a link, default=true
 
   - id: ptgen-srvfi-top
-    name: 'ptgen-srvfi-top'
-    description: 'ptgen服务'
+    name: 'ptgen服务'
     url: 'https://ptgen.srvfi.top/'
     method: GET
     expectStatus: 200
     linkable: true # allows the title to be a link, default=true
 
   - id: www-svfi-group
-    name: 'www-svfi-group'
-    description: 'svfi文档'
+    name: 'svfi文档'
     url: 'https://www.svfi.group/'
     method: GET
     expectStatus: 200
