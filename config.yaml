@@ -21,7 +21,6 @@ monitors:
     method: GET # default=GET
     expectStatus: 200 # operational status, default=200
     followRedirect: false # should fetch follow redirects, default=false
-    linkable: false # allows the title to be a link, default=true
 
   - id: ptgen-srvfi-top
     name: 'ptgen服务'
@@ -32,6 +31,6 @@ monitors:
 
   - id: www-svfi-group
     name: 'svfi文档'
-    url: 'https://www.svfi.group/'
+    url: 'https://doc.svfi.group/'
     method: GET
     expectStatus: 200
