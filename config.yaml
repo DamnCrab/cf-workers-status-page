@@ -40,16 +40,16 @@ monitors:
 
   - id: www-svfi-server-main
     name: 'SVFI主服务器'
-    url: 'http://45.88.194.116:26582/SVFIReqBroadcast'
+    url: 'http://45.88.194.116:23333/SVFIReqBroadcast'
     method: GET
-    expectStatus: 404
+    expectStatus: 405
     linkable: true
     followRedirect: true
 
   - id: www-svfi-server-backup
     name: 'SVFI备用服务器'
-    url: 'http://101.43.116.157:26582/SVFIReqBroadcast'
+    url: 'http://101.43.116.157:23333/SVFIReqBroadcast'
     method: GET
-    expectStatus: 404
+    expectStatus: 405
     linkable: true
     followRedirect: true
