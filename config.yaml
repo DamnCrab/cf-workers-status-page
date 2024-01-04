@@ -38,7 +38,7 @@ monitors:
     linkable: true
     followRedirect: true
 
-  - id: www-svfi-group
+  - id: www-svfi-server-main
     name: 'SVFI主服务器'
     url: 'http://45.88.194.116:26582/SVFIReqBroadcast'
     method: GET
@@ -46,7 +46,7 @@ monitors:
     linkable: true
     followRedirect: true
 
-  - id: www-svfi-group
+  - id: www-svfi-server-backup
     name: 'SVFI备用服务器'
     url: 'http://101.43.116.157:26582/SVFIReqBroadcast'
     method: GET
