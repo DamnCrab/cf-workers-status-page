@@ -30,7 +30,7 @@ monitors:
     expectStatus: 200
     linkable: true # allows the title to be a link, default=true
 
-  - id: www-svfi-group
+  - id: www-svfi-doc
     name: 'svfi文档'
     url: 'https://doc.svfi.group/'
     method: GET
@@ -38,18 +38,26 @@ monitors:
     linkable: true
     followRedirect: true
 
-  - id: www-svfi-server-main
-    name: 'SVFI主服务器'
-    url: 'http://45.88.194.116:23333/SVFIReqBroadcast'
+  - id: www-svfi-doc-cn
+    name: 'svfi文档-备'
+    url: 'https://cn.svfi.group/'
     method: GET
-    expectStatus: 405
+    expectStatus: 200
+    linkable: true
+    followRedirect: true
+
+  - id: www-svfi-server-main
+    name: 'svfi主服'
+    url: 'http://45.88.194.116:23333/svfi_ctrl'
+    method: GET
+    expectStatus: 200
     linkable: true
     followRedirect: true
 
   - id: www-svfi-server-backup
-    name: 'SVFI备用服务器'
-    url: 'http://101.43.116.157:23333/SVFIReqBroadcast'
+    name: 'svfi备服'
+    url: 'http://101.43.116.157:23333/svfi_ctrl'
     method: GET
-    expectStatus: 405
+    expectStatus: 200
     linkable: true
     followRedirect: true
