@@ -48,16 +48,16 @@ monitors:
 
   - id: www-svfi-server-main
     name: 'svfi主服'
-    url: 'http://45.88.194.116:23333/svfi_ctrl'
+    url: '45.88.194.116:23333/svfi_ctrl'
     method: GET
     expectStatus: 200
-    linkable: true
-    followRedirect: true
+    linkable: false
+    followRedirect: false
 
   - id: www-svfi-server-backup
     name: 'svfi备服'
-    url: 'http://101.43.116.157:23333/svfi_ctrl'
+    url: '101.43.116.157:23333/svfi_ctrl'
     method: GET
     expectStatus: 200
-    linkable: true
-    followRedirect: true
+    linkable: false
+    followRedirect: false
