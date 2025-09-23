@@ -1,4 +1,5 @@
-name = "cf-workers-status-page"
+# wrangler.toml
+name = 'cf-workers-status-page-production'
 workers_dev = true
 account_id = ""
 type = "webpack"
