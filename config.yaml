@@ -1,7 +1,7 @@
 settings:
-  title: 'SRVFI探针'
-  url: 'https://status.srvfi.top/' # used for Slack messages
-  logo: SRVFI.png # image in ./public/ folder
+  title: 'SVFI探针'
+  url: 'https://status.svfi.group/' # used for Slack messages
+  logo: SVFI.png # image in ./public/ folder
   daysInHistogram: 90 # number of days you want to display in histogram
   collectResponseTimes: true # collects avg response times from CRON locations
 
@@ -15,32 +15,9 @@ settings:
   dayInHistogramNotOperational: ' 次失败(s)' # xx incident(s) recorded
 
 monitors:
-  - id: www-srvfi-top # unique identifier
-    name: 'SRVFI主站'
-    url: 'https://www.srvfi.top/login.php' # URL to fetch
-    method: GET # default=GET
-    expectStatus: 200 # operational status, default=200
-    followRedirect: true # should fetch follow redirects, default=false
-    linkable: true
-
-  - id: ptgen-srvfi-top
-    name: 'ptgen服务'
-    url: 'https://ptgen.srvfi.top/'
-    method: GET
-    expectStatus: 200
-    linkable: true # allows the title to be a link, default=true
-
   - id: www-svfi-doc
     name: 'svfi文档'
     url: 'https://doc.svfi.group/'
-    method: GET
-    expectStatus: 200
-    linkable: true
-    followRedirect: true
-
-  - id: www-svfi-doc-cn
-    name: 'svfi文档-备'
-    url: 'https://cn.svfi.group/'
     method: GET
     expectStatus: 200
     linkable: true
