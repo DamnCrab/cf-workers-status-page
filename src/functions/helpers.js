@@ -1,5 +1,5 @@
-import config from '../../config.yaml'
 import { useEffect, useState } from 'react'
+import config from '../config'
 
 const kvDataKey = 'monitors_data_v1_1'
 
@@ -22,7 +22,14 @@ const getOperationalLabel = (operational) => {
 
 export async function setKV(key, value, metadata, expirationTtl, env = globalThis) {
   const kv = env.KV_STATUS_PAGE || globalThis.KV_STATUS_PAGE
-  return kv.put(key, value, { metadata, expirationTtl })
+  const options = {}
+  if (metadata !== null && metadata !== undefined) {
+    options.metadata = metadata
+  }
+  if (expirationTtl !== null && expirationTtl !== undefined && expirationTtl > 0) {
+    options.expirationTtl = expirationTtl
+  }
+  return kv.put(key, value, options)
 }
 
 export async function notifySlack(monitor, operational, env = globalThis) {

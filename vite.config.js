@@ -1,32 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { readFileSync } from 'fs'
-import { parse } from 'yaml'
+import yaml from '@rollup/plugin-yaml'
 
-// Custom plugin to handle YAML files
-const yamlPlugin = () => {
-  return {
-    name: 'yaml',
-    transform(code, id) {
-      if (id.endsWith('.yaml') || id.endsWith('.yml')) {
-        const yamlContent = parse(code)
-        return `export default ${JSON.stringify(yamlContent)}`
-      }
-    }
-  }
-}
-
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), yamlPlugin()],
-  build: {
-    outDir: 'dist',
-    rollupOptions: {
-      output: {
-        manualChunks: undefined
+  plugins: [react(), yaml()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://cf-workers-status-page.enormouscrab.workers.dev',
+        changeOrigin: true,
+        secure: true
       }
     }
-  },
-  server: {
-    port: 3000
   }
 })

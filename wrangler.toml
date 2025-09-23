@@ -1,22 +1,17 @@
 # wrangler.toml
 name = "cf-workers-status-page"
 compatibility_date = "2024-01-01"
+main = "src/index.js"
 
-[env.production]
-# KV namespace for storing monitor data
-kv_namespaces = [
-  { binding = "KV_STATUS_PAGE", id = "", preview_id = "" }
-]
+[[kv_namespaces]]
+binding = "KV_STATUS_PAGE"
+id = "31c3570dff95403e8c905f473003c12e"
 
-# Cron triggers for monitoring
 [triggers]
 crons = ["*/2 * * * *"]
 
-# Build configuration
 [build]
 command = "npm run build"
-cwd = "."
 
-# Assets configuration for static site deployment
 [assets]
 directory = "./dist"

@@ -1,5 +1,3 @@
-import config from '../../config.yaml'
-
 import {
   notifySlack,
   notifyTelegram,
@@ -8,6 +6,7 @@ import {
   setKVMonitors,
   notifyDiscord,
 } from './helpers'
+import config from '../config'
 
 function getDate() {
   return new Date().toISOString().split('T')[0]

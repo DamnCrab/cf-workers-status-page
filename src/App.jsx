@@ -1,21 +1,31 @@
 import { useEffect, useState } from 'react'
 import { useMonitorStore } from './store/monitorStore'
 import { useKeyPress } from './hooks/useKeyPress'
-import config from '../config.yaml'
+import config from './config.js'
 import MonitorCard from './components/MonitorCard'
 import MonitorFilter from './components/MonitorFilter'
 import MonitorStatusHeader from './components/MonitorStatusHeader'
 import ThemeSwitcher from './components/ThemeSwitcher'
 
-// Mock data fetching function - will be replaced with actual API calls
+// Fetch monitor data from API endpoint
 const fetchMonitorData = async () => {
-  // This would normally fetch from your Cloudflare Worker API
-  return {
-    monitors: {},
-    lastUpdate: {
-      allOperational: true,
-      time: Date.now(),
-      loc: 'SJC'
+  try {
+    const response = await fetch('/api/monitors')
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Failed to fetch monitor data:', error)
+    // Return default structure on error
+    return {
+      monitors: {},
+      lastUpdate: {
+        allOperational: true,
+        time: Date.now(),
+        loc: 'Unknown'
+      }
     }
   }
 }

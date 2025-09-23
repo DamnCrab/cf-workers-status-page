@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import config from '../../config.yaml'
+import config from '../config.js'
 
 export const useMonitorStore = create((set) => ({
   monitors: config.monitors,

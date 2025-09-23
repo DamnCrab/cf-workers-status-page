@@ -1,5 +1,5 @@
 import React from 'react'
-import config from '../../config.yaml'
+import config from '../config.js'
 import MonitorDayAverage from './MonitorDayAverage'
 
 export default function MonitorHistogram({ monitorId, kvMonitor }) {
@@ -18,6 +18,7 @@ export default function MonitorHistogram({ monitorId, kvMonitor }) {
       // filter all dates before first check, then check the rest
       if (kvMonitor && kvMonitor.firstCheck <= dayInHistogram) {
         if (
+          kvMonitor.checks &&
           kvMonitor.checks.hasOwnProperty(dayInHistogram) &&
           kvMonitor.checks[dayInHistogram].fails > 0
         ) {
@@ -40,7 +41,9 @@ export default function MonitorHistogram({ monitorId, kvMonitor }) {
                 {dayInHistogramLabel}
               </span>
               {kvMonitor &&
+                kvMonitor.checks &&
                 kvMonitor.checks.hasOwnProperty(dayInHistogram) &&
+                kvMonitor.checks[dayInHistogram].res &&
                 Object.keys(kvMonitor.checks[dayInHistogram].res).map((key) => {
                   return (
                     <MonitorDayAverage
