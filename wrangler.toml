@@ -1,5 +1,5 @@
 # wrangler.toml
-name = "cf-workers-status-page"
+name = "cf-workers-status-page-production"
 compatibility_date = "2024-01-01"
 main = "src/index.js"
 
