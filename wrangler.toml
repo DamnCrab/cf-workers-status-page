@@ -3,6 +3,10 @@ name = "cf-workers-status-page-production"
 compatibility_date = "2024-01-01"
 main = "src/index.js"
 
+# Enable Workers Logs
+[observability]
+enabled = true
+
 [[kv_namespaces]]
 binding = "KV_STATUS_PAGE"
 id = "31c3570dff95403e8c905f473003c12e"
