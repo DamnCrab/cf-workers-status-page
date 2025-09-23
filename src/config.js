@@ -28,7 +28,7 @@ const config = {
     {
       id: 'www-svfi-server-main',
       name: 'svfi主服',
-      url: '45.88.194.116:23333/svfi_ctrl',
+      url: 'http://45.88.194.116:23333/svfi_ctrl',
       method: 'GET',
       expectStatus: 200,
       linkable: false,
@@ -37,7 +37,7 @@ const config = {
     {
       id: 'www-svfi-server-backup',
       name: 'svfi备服',
-      url: '101.43.116.157:23333/svfi_ctrl',
+      url: 'http://101.43.116.157:23333/svfi_ctrl',
       method: 'GET',
       expectStatus: 200,
       linkable: false,
