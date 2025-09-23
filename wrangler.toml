@@ -17,5 +17,6 @@ crons = ["*/2 * * * *"]
 command = "npm run build"
 cwd = "."
 
-# Pages configuration
-pages_build_output_dir = "dist"
+# Assets configuration for static site deployment
+[assets]
+directory = "./dist"
