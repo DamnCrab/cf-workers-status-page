@@ -48,7 +48,9 @@ export default function MonitorFilter({ active, callback }) {
         ref={(e) => e && active && e.focus()}
       />
       <div className="absolute inset-y-1 right-1 flex z-1 items-center">
-        {searchIcon}
+        <div className="bg-gray-100 dark:bg-gray-600 rounded-full p-1">
+          {searchIcon}
+        </div>
       </div>
     </div>
   )

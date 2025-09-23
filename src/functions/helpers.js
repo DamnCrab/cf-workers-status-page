@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react'
 
 const kvDataKey = 'monitors_data_v1_1'
 
-export async function getKVMonitors() {
+export async function getKVMonitors(env = globalThis) {
   // trying both to see performance difference
-  return KV_STATUS_PAGE.get(kvDataKey, 'json')
-  //return JSON.parse(await KV_STATUS_PAGE.get(kvDataKey, 'text'))
+  const kv = env.KV_STATUS_PAGE || globalThis.KV_STATUS_PAGE
+  return kv.get(kvDataKey, 'json')
+  //return JSON.parse(await kv.get(kvDataKey, 'text'))
 }
 
-export async function setKVMonitors(data) {
-  return setKV(kvDataKey, JSON.stringify(data))
+export async function setKVMonitors(data, env = globalThis) {
+  return setKV(kvDataKey, JSON.stringify(data), null, null, env)
 }
 
 const getOperationalLabel = (operational) => {
@@ -19,11 +20,12 @@ const getOperationalLabel = (operational) => {
     : config.settings.monitorLabelNotOperational
 }
 
-export async function setKV(key, value, metadata, expirationTtl) {
-  return KV_STATUS_PAGE.put(key, value, { metadata, expirationTtl })
+export async function setKV(key, value, metadata, expirationTtl, env = globalThis) {
+  const kv = env.KV_STATUS_PAGE || globalThis.KV_STATUS_PAGE
+  return kv.put(key, value, { metadata, expirationTtl })
 }
 
-export async function notifySlack(monitor, operational) {
+export async function notifySlack(monitor, operational, env = globalThis) {
   const payload = {
     attachments: [
       {
@@ -56,14 +58,14 @@ export async function notifySlack(monitor, operational) {
       },
     ],
   }
-  return fetch(SECRET_SLACK_WEBHOOK_URL, {
+  return fetch(env.SECRET_SLACK_WEBHOOK_URL, {
     body: JSON.stringify(payload),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   })
 }
 
-export async function notifyTelegram(monitor, operational) {
+export async function notifyTelegram(monitor, operational, env = globalThis) {
   const text = `Monitor *${monitor.name.replaceAll(
     '-',
     '\\-',
@@ -73,11 +75,11 @@ export async function notifyTelegram(monitor, operational) {
   }\` \\- 👀 [Status Page](${config.settings.url})`
 
   const payload = new FormData()
-  payload.append('chat_id', SECRET_TELEGRAM_CHAT_ID)
+  payload.append('chat_id', env.SECRET_TELEGRAM_CHAT_ID)
   payload.append('parse_mode', 'MarkdownV2')
   payload.append('text', text)
 
-  const telegramUrl = `https://api.telegram.org/bot${SECRET_TELEGRAM_API_TOKEN}/sendMessage`
+  const telegramUrl = `https://api.telegram.org/bot${env.SECRET_TELEGRAM_API_TOKEN}/sendMessage`
   return fetch(telegramUrl, {
     body: payload,
     method: 'POST',
@@ -85,7 +87,7 @@ export async function notifyTelegram(monitor, operational) {
 }
 
 // Visualize your payload using https://leovoel.github.io/embed-visualizer/
-export async function notifyDiscord(monitor, operational) {
+export async function notifyDiscord(monitor, operational, env = globalThis) {
   const payload = {
     username: `${config.settings.title}`,
     avatar_url: `${config.settings.url}/${config.settings.logo}`,
@@ -101,7 +103,7 @@ export async function notifyDiscord(monitor, operational) {
       },
     ],
   }
-  return fetch(SECRET_DISCORD_WEBHOOK_URL, {
+  return fetch(env.SECRET_DISCORD_WEBHOOK_URL, {
     body: JSON.stringify(payload),
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -13,13 +13,13 @@ function getDate() {
   return new Date().toISOString().split('T')[0]
 }
 
-export async function processCronTrigger(event) {
+export async function processCronTrigger(event, env = globalThis) {
   // Get Worker PoP and save it to monitorsStateMetadata
   const checkLocation = await getCheckLocation()
   const checkDay = getDate()
 
   // Get monitors state from KV
-  let monitorsState = await getKVMonitors()
+  let monitorsState = await getKVMonitors(env)
 
   // Create empty state objects if not exists in KV storage yet
   if (!monitorsState) {
@@ -72,30 +72,30 @@ export async function processCronTrigger(event) {
     // Send Slack message on monitor change
     if (
       monitorStatusChanged &&
-      typeof SECRET_SLACK_WEBHOOK_URL !== 'undefined' &&
-      SECRET_SLACK_WEBHOOK_URL !== 'default-gh-action-secret'
+      typeof env.SECRET_SLACK_WEBHOOK_URL !== 'undefined' &&
+      env.SECRET_SLACK_WEBHOOK_URL !== 'default-gh-action-secret'
     ) {
-      event.waitUntil(notifySlack(monitor, monitorOperational))
+      event.waitUntil && event.waitUntil(notifySlack(monitor, monitorOperational, env))
     }
 
     // Send Telegram message on monitor change
     if (
       monitorStatusChanged &&
-      typeof SECRET_TELEGRAM_API_TOKEN !== 'undefined' &&
-      SECRET_TELEGRAM_API_TOKEN !== 'default-gh-action-secret' &&
-      typeof SECRET_TELEGRAM_CHAT_ID !== 'undefined' &&
-      SECRET_TELEGRAM_CHAT_ID !== 'default-gh-action-secret'
+      typeof env.SECRET_TELEGRAM_API_TOKEN !== 'undefined' &&
+      env.SECRET_TELEGRAM_API_TOKEN !== 'default-gh-action-secret' &&
+      typeof env.SECRET_TELEGRAM_CHAT_ID !== 'undefined' &&
+      env.SECRET_TELEGRAM_CHAT_ID !== 'default-gh-action-secret'
     ) {
-      event.waitUntil(notifyTelegram(monitor, monitorOperational))
+      event.waitUntil && event.waitUntil(notifyTelegram(monitor, monitorOperational, env))
     }
 
     // Send Discord message on monitor change
     if (
       monitorStatusChanged &&
-      typeof SECRET_DISCORD_WEBHOOK_URL !== 'undefined' &&
-      SECRET_DISCORD_WEBHOOK_URL !== 'default-gh-action-secret'
+      typeof env.SECRET_DISCORD_WEBHOOK_URL !== 'undefined' &&
+      env.SECRET_DISCORD_WEBHOOK_URL !== 'default-gh-action-secret'
     ) {
-      event.waitUntil(notifyDiscord(monitor, monitorOperational))
+      event.waitUntil && event.waitUntil(notifyDiscord(monitor, monitorOperational, env))
     }
 
     // make sure checkDay exists in checks in cases when needed
@@ -153,7 +153,7 @@ export async function processCronTrigger(event) {
   monitorsState.lastUpdate.loc = checkLocation
 
   // Save monitorsState to KV storage
-  await setKVMonitors(monitorsState)
+  await setKVMonitors(monitorsState, env)
 
   return new Response('OK')
 }

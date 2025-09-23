@@ -3,13 +3,12 @@ import config from '../../config.yaml'
 const classes = {
   gray: 'bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
   green: 'bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200',
-  yellow:
-    'bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200',
+  yellow: 'bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200',
 }
 
 export default function MonitorStatusLabel({ kvMonitor }) {
   let color = 'gray'
-  let text = 'No data'
+  let text = config.settings.monitorLabelNoData || 'No data'
 
   if (typeof kvMonitor !== 'undefined') {
     if (kvMonitor.lastCheck.operational) {
@@ -21,5 +20,9 @@ export default function MonitorStatusLabel({ kvMonitor }) {
     }
   }
 
-  return <div className={`pill leading-5 ${classes[color]}`}>{text}</div>
+  return (
+    <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${classes[color]}`}>
+      {text}
+    </div>
+  )
 }

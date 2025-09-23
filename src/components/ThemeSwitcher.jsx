@@ -34,23 +34,39 @@ const sunIcon = (
   </svg>
 )
 
+function setTheme(theme) {
+  document.documentElement.classList.remove('dark', 'light')
+  document.documentElement.classList.add(theme)
+  localStorage.theme = theme
+}
+
 export default function ThemeSwitcher() {
-  const [darkmode, setDark] = useState(localStorage.getItem('theme') === 'dark')
+  const [darkmode, setDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark'
+    }
+    return false
+  })
 
   useEffect(() => {
-    setTheme(darkmode ? 'dark' : 'light')
+    if (typeof window !== 'undefined') {
+      setTheme(darkmode ? 'dark' : 'light')
+    }
   }, [darkmode])
 
   const changeTheme = () => {
     setDark(!darkmode)
   }
 
-  const buttonColor = darkmode ? 'bg-gray-700 focus:ring-gray-700' : 'bg-gray-200 focus:ring-gray-200'
+  const buttonColor = darkmode 
+    ? 'bg-gray-700 focus:ring-gray-700' 
+    : 'bg-gray-200 focus:ring-gray-200'
 
   return (
     <button
-      className={`${buttonColor} rounded-full h-7 w-7 mr-4 focus:outline-none focus:ring-2 focus:ring-opacity-50`}
+      className={`mr-4 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 ${buttonColor}`}
       onClick={changeTheme}
+      aria-label="Toggle theme"
     >
       {darkmode ? sunIcon : moonIcon}
     </button>
